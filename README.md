@@ -18,6 +18,6 @@ mvn wildfly:run
 
 Primefaces project uses Wildfly's default preconfigured H2 in memory datasource.
 
-Navigate to (http://localhost:8080/todolist/)
+Navigate to [http://localhost:8080/todolist/] (http://localhost:8080/todolist/)
 
 That's it.
