@@ -6,6 +6,14 @@
   <packaging>war</packaging>
   <name>First TodoList</name>
   <description>First attempt (and what came onto my mind)</description>
+  
+  <!-- define dependencies versions on one place -->
+  <properties>
+    <spring.version>4.2.2.RELEASE</spring.version>
+    <hsqldb.version>2.3.4</hsqldb.version>
+    <hibernate.version>5.2.8.Final</hibernate.version>
+  </properties>
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -26,4 +34,86 @@
       </plugin>
     </plugins>
   </build>
+  
+  <!-- jboss public nexus repo -->
+  <repositories>
+    <repository>
+      <id>JBoss repository</id>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+    </repository>
+  </repositories>
+  
+  <!-- dependencies for a really quick start -->
+  <dependencies>
+  
+    <!-- Spring dependencies -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-orm</artifactId>
+       <version>${spring.version}</version>
+    </dependency>
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-web</artifactId>
+		  <version>${spring.version}</version>
+		</dependency>    
+		<dependency>
+		  <groupId>org.springframework.security</groupId>
+		  <artifactId>spring-security-web</artifactId>
+		  <version>${spring.version}</version>
+		</dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+		<dependency>
+		  <groupId>org.springframework.security</groupId>
+		  <artifactId>spring-security-config</artifactId>
+		  <version>${spring.version}</version>
+		</dependency>		
+		<dependency>
+		  <groupId>org.springframework.security</groupId>
+		  <artifactId>spring-security-taglibs</artifactId>
+		  <version>${spring.version}</version>
+		</dependency>  
+
+    <!-- HSQLDB -->
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>${hsqldb.version}</version>
+    </dependency>
+
+    <!-- Hibernate -->    
+		<dependency>
+		  <groupId>org.hibernate</groupId>
+		  <artifactId>hibernate-core</artifactId>
+		  <version>${hibernate.version}</version>
+		</dependency>
+		
+		<!-- Apache Commons -->
+		<dependency>
+		  <groupId>commons-dbcp</groupId>
+		  <artifactId>commons-dbcp</artifactId>
+		  <version>1.4</version>
+		</dependency>		
+
+  </dependencies>
+  
 </project>
