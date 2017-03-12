@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body>
+
+  <p:growl id="growl" life="2000" />
+
+  <!-- new todo -->
+  <h:form id="newToDoForm">  
+     <p:dialog header="Add new ToDo" widgetVar="newToDoDialog" modal="true" resizable="false" id="newToDoDialog">
+       <h:panelGrid columns="2" cellpadding="4">
+         <h:outputText value="ToDo Short Description*: " />
+         <p:inputText value="#{todoListBean.todoShortDesc}"/>
+         
+         <h:outputText value="ToDo Long Description: " />
+         <p:inputText value="#{todoListBean.todoLongDesc}"/>
+
+         <f:facet name="footer">
+            <p:commandButton value="OK" update="growl,:todoListForm:todoPanel" action="#{todoListBean.addNewToDo}"/>
+         </f:facet>
+       </h:panelGrid>
+     </p:dialog>
+  </h:form>
+  
+  <!-- update todo -->
+  <h:form id="updateToDoForm">  
+     <p:dialog header="Update ToDo" widgetVar="updateToDoDialog" modal="true" resizable="false" id="updateToDoDialog">
+       <h:panelGrid columns="2" cellpadding="4">
+         <h:outputText value="ToDo Short Description*: " />
+         <p:inputText value="#{todoListBean.todoShortDesc}"/>
+         
+         <h:outputText value="ToDo Long Description: " />
+         <p:inputText value="#{todoListBean.todoLongDesc}"/>
+
+         <f:facet name="footer">
+            <p:commandButton value="OK" update="growl,:todoListForm:todoPanel" action="#{todoListBean.updateToDo}"/>
+         </f:facet>
+       </h:panelGrid>
+     </p:dialog>
+  </h:form>
+  
+  <h:form id="confirmAction">
+    <p:confirmDialog global="true" showEffect="slide" hideEffect="explode">
+      <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+      <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+  </h:form>
+
+  <h:form id="todoListForm">
+  
+	  <p:panel header="ToDo App" >
+	  
+	   <p>Welcome <h:outputText value="#{userManagerBean.getFullName()}"/>, your ToDo list is prepared.</p>
+	   <p>If you need to leave your work for later, <p:commandButton value="Logout" action="#{userManagerBean.logout()}" /></p>
+	   
+	   <p:commandButton value="New ToDo" update=":newToDoForm" oncomplete="PF('newToDoDialog').show();" action="#{todoListBean.resetFields}"/>
+	   <p>Click on button for new ToDo.</p>
+
+     <p:panel header="ToDo List" id="todoPanel">
+	    <p:dataGrid var="todo" value="#{todoListBean.todoList}" columns="2" rows="9" id="todoDataGrid" paginator="true" paginatorAlwaysVisible="false" paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink}" paginatorPosition="top">
+	      <p:column>
+	        <p:panel header="#{todo.todoShortDesc}">
+	          <f:facet name="options">
+	            <p:menu>
+	              <p:submenu label="Options">
+	                <p:menuitem value="Edit" action="#{todoListBean.prepareToDoUpdate(todo)}" oncomplete="PF('updateToDoDialog').show();" update=":updateToDoForm"/>
+	                <p:menuitem value="Remove" action="#{todoListBean.removeToDo(todo)}" update="todoListForm">
+	                   <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+	                </p:menuitem>
+	              </p:submenu>
+	            </p:menu>
+	          </f:facet>
+	          <h:panelGrid columns="1">
+	            <h:outputText value="#{todo.todoLongDesc}" />
+	          </h:panelGrid>
+	        </p:panel>
+	      </p:column>
+	    </p:dataGrid>   
+	  </p:panel> 
+	  
+	  </p:panel>
+  
+  </h:form>
+
+</body> 
+</html>
